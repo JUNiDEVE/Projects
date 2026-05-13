@@ -974,14 +974,10 @@ function resetForm() {
   dp.year = earliest.year; dp.month = earliest.month; dp.day = earliest.day;
   document.getElementById('dateDisplay').value = dpFormatted();
   document.getElementById('errMsg').style.display = 'none';
-  resetBtn();
-}
-</script>
-
-</body>
-</html>
-
-function dpSelectMonth(m) {
+	  resetBtn();
+	}
+	
+	function dpSelectMonth(m) {
   dp.month = m;
   dpRenderMonths();
   dpRenderDays();
