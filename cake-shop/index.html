@@ -17,7 +17,7 @@
 <style>
 /* ═══ RESET ═══ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
- 
+
 /* ═══ TOKENS ═══ */
 :root{
   --bg:#07070F;
@@ -31,9 +31,9 @@
   --border:rgba(255,255,255,0.08);
   --r:20px; --r-sm:12px;
 }
- 
+
 html{scroll-behavior:smooth;}
- 
+
 body{
   font-family:'Vazirmatn',-apple-system,sans-serif;
   background:var(--bg);
@@ -42,13 +42,13 @@ body{
   overflow-x:hidden;
   direction:rtl;
 }
- 
+
 /* grain */
 body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
- 
+
 /* ═══ ORBS ═══ */
 .orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.28;animation:drift 14s ease-in-out infinite alternate;}
@@ -57,10 +57,10 @@ body::after{
 .orb-3{width:360px;height:360px;background:var(--orb3);bottom:-10%;right:15%;animation-delay:-8s;}
 .orb-4{width:300px;height:300px;background:var(--orb4);bottom:25%;left:25%;animation-delay:-11s;}
 @keyframes drift{from{transform:translate(0,0) scale(1);}to{transform:translate(28px,18px) scale(1.1);}}
- 
+
 /* ═══ LAYOUT ═══ */
 .page{position:relative;z-index:2;max-width:620px;margin:0 auto;padding:0 16px 100px;}
- 
+
 /* ═══ HERO ═══ */
 .hero{padding:56px 0 40px;text-align:center;animation:slideDown .8s cubic-bezier(.16,1,.3,1) both;}
 .badge{
@@ -80,7 +80,7 @@ body::after{
 .divider{display:flex;align-items:center;gap:14px;margin:28px 0;}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(to left,transparent,var(--border),transparent);}
 .divider span{font-size:16px;opacity:.5;}
- 
+
 /* ═══ CARD ═══ */
 .card{
   background:var(--glass);border:1px solid var(--glass-border);
@@ -93,10 +93,10 @@ body::after{
 .card:nth-of-type(1){animation-delay:.08s;}
 .card:nth-of-type(2){animation-delay:.14s;}
 .card:nth-of-type(3){animation-delay:.20s;}
- 
+
 @keyframes slideDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
- 
+
 /* section header */
 .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
 .sec-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
@@ -105,15 +105,15 @@ body::after{
 .si-t{background:linear-gradient(135deg,#1FA88C,#38D9C0);}
 .sec-title{font-size:15px;font-weight:700;letter-spacing:-.3px;}
 .sec-sub{font-size:12px;color:var(--text-muted);margin-top:2px;}
- 
+
 /* ═══ FIELDS ═══ */
 .field{margin-bottom:16px;}
 .field:last-child{margin-bottom:0;}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
- 
+
 label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:8px;letter-spacing:.6px;text-transform:uppercase;}
 label .req{color:var(--accent);}
- 
+
 input,select,textarea{
   width:100%;padding:14px 16px;
   background:rgba(255,255,255,0.045);
@@ -134,7 +134,7 @@ select{
 }
 select option{background:#12121E;color:var(--text);}
 textarea{resize:vertical;min-height:82px;line-height:1.7;}
- 
+
 /* ═══ FLAVOR GRID ═══ */
 .flavor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
 .fc{position:relative;}
@@ -155,7 +155,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
 .fe{font-size:22px;line-height:1;}
 .fn{font-size:11px;font-weight:700;color:var(--text);}
 .fp{font-size:9.5px;color:var(--text-muted);}
- 
+
 /* ═══ PILLS ═══ */
 .pills{display:flex;gap:8px;flex-wrap:wrap;}
 .pill{position:relative;}
@@ -173,7 +173,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
   border-color:var(--accent);color:var(--text);
   box-shadow:0 0 18px rgba(255,140,66,.15);
 }
- 
+
 /* ═══ DELIVERY TOGGLE ═══ */
 .dtoggle-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .dt{position:relative;}
@@ -192,11 +192,11 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
   background:linear-gradient(135deg,rgba(31,168,140,.2),rgba(56,217,192,.1));
   border-color:var(--teal);box-shadow:0 0 22px rgba(31,168,140,.15);
 }
- 
+
 /* ═══ ADDRESS SLIDE ═══ */
 #addr-wrap{overflow:hidden;max-height:0;opacity:0;transition:max-height .4s ease,opacity .3s ease,margin .3s;}
 #addr-wrap.open{max-height:220px;opacity:1;margin-top:14px;}
- 
+
 /* ═══ DATE PICKER ═══ */
 .date-row{display:flex;gap:8px;align-items:flex-end;}
 .date-input-wrap{flex:1;}
@@ -208,7 +208,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
   cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;
 }
 .date-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,140,66,.35);}
- 
+
 /* Date picker modal */
 .dp-overlay{
   display:none;
@@ -220,7 +220,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
   padding:20px;
 }
 .dp-overlay.open{display:flex;}
- 
+
 .dp-box{
   background:#13131F;
   border:1px solid rgba(255,255,255,.12);
@@ -236,27 +236,23 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
   border-radius:24px 24px 0 0;
 }
- 
+
 .dp-title{font-size:17px;font-weight:800;color:var(--text);text-align:center;margin-bottom:24px;}
- 
+
 .dp-section{margin-bottom:22px;}
 .dp-section-label{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;}
- 
-/* year stepper */
-.year-row{display:flex;align-items:center;justify-content:center;gap:16px;}
-.year-btn{
-  width:44px;height:44px;border-radius:12px;
-  background:rgba(255,255,255,.06);border:1px solid var(--border);
-  color:var(--text);font-size:20px;font-weight:700;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .2s;
+
+/* X close button */
+.dp-close-x{
+  position:absolute;top:16px;left:16px;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid var(--border);
+  color:var(--text-dim);font-size:16px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;line-height:1;
 }
-.year-btn:hover{background:rgba(255,140,66,.2);border-color:var(--accent);}
-.year-val{
-  font-size:22px;font-weight:900;color:var(--text);
-  min-width:90px;text-align:center;letter-spacing:-1px;
-}
- 
+.dp-close-x:hover{background:rgba(255,77,139,.2);border-color:#FF4D8B;color:#fff;}
+
 /* month grid */
 .month-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
 .m-btn{
@@ -271,7 +267,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
   border-color:var(--accent);color:var(--text);
   box-shadow:0 0 14px rgba(255,140,66,.18);
 }
- 
+
 /* day grid */
 .day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
 .d-btn{
@@ -288,7 +284,23 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
   box-shadow:0 0 14px rgba(255,140,66,.35);
 }
 .d-btn.today{border-color:var(--gold);}
- 
+.d-btn.disabled{
+  opacity:.25;cursor:not-allowed;
+  background:rgba(255,255,255,.02);
+  color:var(--text-muted);
+  text-decoration:line-through;
+}
+.d-btn.disabled:hover{background:rgba(255,255,255,.02);color:var(--text-muted);}
+/* discount field */
+.discount-wrap{margin-top:16px;}
+.discount-inner{display:flex;gap:8px;align-items:center;}
+.discount-inner input{flex:1;}
+.discount-tag{
+  font-size:11px;color:var(--teal);margin-top:6px;
+  display:none;
+}
+.discount-tag.show{display:block;}
+
 /* dp actions */
 .dp-actions{display:flex;gap:10px;margin-top:24px;}
 .dp-cancel{
@@ -306,7 +318,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
   font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;
 }
 .dp-confirm:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,140,66,.35);}
- 
+
 /* ═══ PRICE CARD ═══ */
 .price-card{
   display:none;
@@ -325,7 +337,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
 }
 .p-unit{font-size:13px;color:var(--text-dim);margin-top:2px;}
 .p-ico{font-size:42px;opacity:.65;}
- 
+
 /* ═══ SUBMIT ═══ */
 .submit-btn{
   width:100%;padding:20px;
@@ -342,10 +354,10 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
 .submit-btn:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 16px 48px rgba(255,107,53,.45);}
 .submit-btn:active{transform:translateY(0) scale(.99);}
 .submit-btn:disabled{opacity:.65;cursor:not-allowed;transform:none;box-shadow:none;}
- 
+
 /* ═══ ERROR ═══ */
 .err{margin-top:12px;padding:14px 18px;background:rgba(255,77,139,.1);border:1px solid rgba(255,77,139,.3);border-radius:var(--r-sm);font-size:13px;color:#FF7BAE;display:none;line-height:1.5;}
- 
+
 /* ═══ SUCCESS ═══ */
 .success-wrap{display:none;position:fixed;inset:0;background:rgba(7,7,15,.88);backdrop-filter:blur(24px);z-index:200;align-items:center;justify-content:center;padding:24px;}
 .success-wrap.show{display:flex;}
@@ -364,7 +376,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
 .s-id{margin-top:14px;font-size:12px;color:var(--text-muted);letter-spacing:.5px;}
 .s-close{margin-top:28px;padding:15px 40px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:100px;font-family:'Vazirmatn',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 6px 24px rgba(255,107,53,.3);}
 .s-close:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(255,107,53,.5);}
- 
+
 @media(max-width:480px){
   .card{padding:20px;}
   .row2{grid-template-columns:1fr;}
@@ -373,15 +385,15 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
 </style>
 </head>
 <body>
- 
+
 <!-- orbs -->
 <div class="orbs">
   <div class="orb orb-1"></div><div class="orb orb-2"></div>
   <div class="orb orb-3"></div><div class="orb orb-4"></div>
 </div>
- 
+
 <div class="page">
- 
+
   <!-- HERO -->
   <div class="hero">
     <div class="badge">🎂 سفارش آنلاین کیک</div>
@@ -389,9 +401,9 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
     <p>کیک سفارشی خود را طراحی کنید — دقیق، خوشمزه، فقط برای شما</p>
     <div class="divider"><span>✦</span></div>
   </div>
- 
+
   <form id="orderForm" novalidate>
- 
+
     <!-- CARD 1: Customer -->
     <div class="card">
       <div class="sec-head">
@@ -409,14 +421,14 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
         </div>
       </div>
     </div>
- 
+
     <!-- CARD 2: Cake -->
     <div class="card">
       <div class="sec-head">
         <div class="sec-icon si-p">🍰</div>
         <div><div class="sec-title">مشخصات کیک</div><div class="sec-sub">طعم، وزن و شکل دلخواه</div></div>
       </div>
- 
+
       <div class="field">
         <label>طعم کیک <span class="req">*</span></label>
         <div class="flavor-grid">
@@ -425,11 +437,11 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
           <div class="fc"><input type="radio" name="flavor" id="f3" value="Vanilla"><label for="f3"><span class="fe">🍦</span><span class="fn">وانیل</span><span class="fp">700K/kg</span></label></div>
           <div class="fc"><input type="radio" name="flavor" id="f4" value="Chocolate"><label for="f4"><span class="fe">🍫</span><span class="fn">شکلات</span><span class="fp">650K/kg</span></label></div>
           <div class="fc"><input type="radio" name="flavor" id="f5" value="Raspberry Vanilla"><label for="f5"><span class="fe">🫐</span><span class="fn">وانیل تمشک</span><span class="fp">786K/kg</span></label></div>
-          <div class="fc"><input type="radio" name="flavor" id="f6" value="Raspberry Spinach"><label for="f6"><span class="fe">🌹</span><span class="fn">تمشک پسته</span><span class="fp">800K/kg</span></label></div>
+          <div class="fc"><input type="radio" name="flavor" id="f6" value="Raspberry Spinach"><label for="f6"><span class="fe">🌹</span><span class="fn">تمشک اسفناج</span><span class="fp">800K/kg</span></label></div>
           <div class="fc"><input type="radio" name="flavor" id="f7" value="Orange Blossom Spinach"><label for="f7"><span class="fe">🍊</span><span class="fn">بهار نارنج</span><span class="fp">845K/kg</span></label></div>
         </div>
       </div>
- 
+
       <div class="row2" style="margin-top:18px">
         <div class="field" style="margin:0">
           <label>وزن (کیلوگرم) <span class="req">*</span></label>
@@ -443,7 +455,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
           </div>
         </div>
       </div>
- 
+
       <div class="field" style="margin-top:18px">
         <label>متن روی کیک</label>
         <input type="text" name="custom_text" placeholder="مثلاً: تولدت مبارک عزیزم ✨">
@@ -453,14 +465,14 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
         <textarea name="notes" placeholder="هر چیزی که باید بدانیم..."></textarea>
       </div>
     </div>
- 
+
     <!-- CARD 3: Delivery -->
     <div class="card">
       <div class="sec-head">
         <div class="sec-icon si-t">🚗</div>
         <div><div class="sec-title">تحویل سفارش</div><div class="sec-sub">چطور کیک به دستتان برسد؟</div></div>
       </div>
- 
+
       <div class="field">
         <label>روش دریافت <span class="req">*</span></label>
         <div class="dtoggle-grid">
@@ -474,14 +486,14 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
           </div>
         </div>
       </div>
- 
+
       <div id="addr-wrap">
         <div class="field">
           <label>آدرس کامل <span class="req">*</span></label>
           <textarea name="address" id="addrField" placeholder="شهر، خیابان، کوچه، پلاک..."></textarea>
         </div>
       </div>
- 
+
       <div class="row2" style="margin-top:16px">
         <div class="field" style="margin:0">
           <label>تاریخ تحویل <span class="req">*</span></label>
@@ -504,38 +516,38 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
           </select>
         </div>
       </div>
+
+      <!-- DISCOUNT CODE -->
+      <div class="discount-wrap">
+        <label>کد تخفیف</label>
+        <div class="discount-inner">
+          <input type="text" name="discount_code" id="discountCode" placeholder="کد تخفیف دارید؟ اینجا وارد کنید" autocomplete="off" style="text-transform:uppercase;letter-spacing:1px;">
+        </div>
+        <div class="discount-tag" id="discountTag">✅ کد تخفیف ثبت شد — هنگام تأیید سفارش اعمال می‌شود</div>
+      </div>
     </div>
- 
+
     <!-- PRICE -->
     <div class="price-card" id="priceCard">
       <div><div class="p-tag">قیمت تخمینی سفارش</div><div class="p-num" id="priceNum">۰</div><div class="p-unit">تومان</div></div>
       <div class="p-ico">💎</div>
     </div>
- 
+
     <!-- SUBMIT -->
     <button type="submit" class="submit-btn" id="submitBtn">
       <span style="font-size:21px">🎂</span><span>ثبت سفارش</span>
     </button>
     <div class="err" id="errMsg"></div>
- 
+
   </form>
 </div>
- 
+
 <!-- ═══ DATE PICKER MODAL ═══ -->
 <div class="dp-overlay" id="dpOverlay">
   <div class="dp-box">
+    <button type="button" class="dp-close-x" onclick="dpClose()" title="بستن">✕</button>
     <div class="dp-title">📅 تاریخ تحویل را انتخاب کنید</div>
- 
-    <!-- Year -->
-    <div class="dp-section">
-      <div class="dp-section-label">سال</div>
-      <div class="year-row">
-        <button type="button" class="year-btn" onclick="dpChangeYear(1)">+</button>
-        <div class="year-val" id="dpYear">1404</div>
-        <button type="button" class="year-btn" onclick="dpChangeYear(-1)">−</button>
-      </div>
-    </div>
- 
+
     <!-- Month -->
     <div class="dp-section">
       <div class="dp-section-label">ماه</div>
@@ -554,13 +566,20 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
         <button type="button" class="m-btn" onclick="dpSelectMonth(12)">اسفند</button>
       </div>
     </div>
- 
+
     <!-- Day -->
     <div class="dp-section">
       <div class="dp-section-label">روز</div>
       <div class="day-grid" id="dpDayGrid"></div>
     </div>
- 
+
+    <!-- Legend -->
+    <div style="display:flex;gap:12px;align-items:center;margin-top:12px;font-size:11px;color:var(--text-muted);">
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:inline-block;"></span>انتخاب شده</span>
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:3px;border:1px solid var(--gold);display:inline-block;"></span>امروز</span>
+      <span style="display:flex;align-items:center;gap:5px;opacity:.4;"><span style="width:12px;height:12px;border-radius:3px;background:rgba(255,255,255,.04);display:inline-block;"></span>غیرفعال</span>
+    </div>
+
     <!-- Actions -->
     <div class="dp-actions">
       <button type="button" class="dp-cancel" onclick="dpClose()">انصراف</button>
@@ -568,7 +587,7 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
     </div>
   </div>
 </div>
- 
+
 <!-- ═══ SUCCESS ═══ -->
 <div class="success-wrap" id="successWrap">
   <div class="success-box">
@@ -579,19 +598,19 @@ textarea{resize:vertical;min-height:82px;line-height:1.7;}
     <button class="s-close" onclick="resetForm()">سفارش جدید 🎂</button>
   </div>
 </div>
- 
+
 <script>
 // ════════════════════════════
 // CONFIG
 // ════════════════════════════
 const API = '/api/order';
- 
+
 const PRICES = {
   'Mocha':765000,'Nutella':780000,'Vanilla':700000,
   'Chocolate':650000,'Raspberry Vanilla':786000,
   'Raspberry Spinach':800000,'Orange Blossom Spinach':845000
 };
- 
+
 // ════════════════════════════
 // PERSIAN DATE CONVERTER
 // ════════════════════════════
@@ -612,13 +631,91 @@ function toJalali(gy, gm, gd) {
   const jd = 1 + (days < 186 ? days%31 : (days-186)%30);
   return {year:jy, month:jm, day:jd};
 }
- 
+
+// Convert Jalali to Gregorian Date object
+function jalaliToGregorian(jy, jm, jd) {
+  let gy, gm, gd;
+  jy += 1595;
+  let days = -355779 + (365 * jy) + (Math.floor(jy/33)*8) + Math.floor(((jy%33)+3)/4) + jd;
+  const jMonthDays = [0,31,31,31,31,31,31,30,30,30,30,30,29];
+  for (let i=1; i < jm; i++) days += jMonthDays[i];
+  gy = 400 * Math.floor(days/146097);
+  days %= 146097;
+  if (days > 36524) { gy += 100*Math.floor(--days/36524); days %= 36524; if (days >= 365) days++; }
+  gy += 4 * Math.floor(days/1461);
+  days %= 1461;
+  if (days > 364) { gy += Math.floor((days-1)/365); days = (days-1)%365; }
+  const gMonthDays = [31,((gy%4===0 && gy%100!==0)||(gy%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];
+  gd = days + 1;
+  for (gm=0; gm<12 && gd>gMonthDays[gm]; gm++) gd -= gMonthDays[gm];
+  return new Date(gy, gm, gd);
+}
+
+// ════════════════════════════
+// SMART DATE RULES
+// ════════════════════════════
+
+// Get Tehran time (UTC+3:30)
+function getTehranNow() {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  return new Date(utc + 3.5 * 3600000);
+}
+
+// Get absolute day number from a Date (for easy comparison)
+function dayNum(date) {
+  return Math.floor(date.getTime() / 86400000);
+}
+
+// Check if a Jalali date is disabled
+function isDayDisabled(jy, jm, jd) {
+  const gDate = jalaliToGregorian(jy, jm, jd);
+  const dow = gDate.getDay(); // 0=Sun ... 5=Fri ... 6=Sat
+
+  // Friday always blocked
+  if (dow === 5) return true;
+
+  const tehran = getTehranNow();
+  const todayNum = dayNum(new Date(tehran.getFullYear(), tehran.getMonth(), tehran.getDate()));
+  const targetNum = dayNum(new Date(gDate.getFullYear(), gDate.getMonth(), gDate.getDate()));
+
+  // Past dates always blocked
+  if (targetNum < todayNum) return true;
+
+  // Read form state fresh
+  const isRectangle = document.querySelector('input[name="shape"]:checked')?.value === 'Rectangle';
+  const hasText = (document.querySelector('input[name="custom_text"]')?.value?.trim() || '').length > 0;
+  const isPastCutoff = tehran.getHours() >= 13;
+
+  // Block TODAY if rules apply
+  if (targetNum === todayNum) {
+    if (isRectangle) return true;
+    if (hasText && isPastCutoff) return true;
+  }
+
+  return false;
+}
+
+// Get the earliest available Jalali date
+function getEarliestAvailable() {
+  const tehran = getTehranNow();
+  let checkDate = new Date(tehran.getFullYear(), tehran.getMonth(), tehran.getDate());
+
+  for (let i = 0; i < 60; i++) {
+    const j = toJalali(checkDate.getFullYear(), checkDate.getMonth()+1, checkDate.getDate());
+    if (!isDayDisabled(j.year, j.month, j.day)) return j;
+    checkDate.setDate(checkDate.getDate() + 1);
+  }
+  const j = toJalali(tehran.getFullYear(), tehran.getMonth()+1, tehran.getDate()+1);
+  return j;
+}
+
 // ════════════════════════════
 // DATE PICKER STATE
 // ════════════════════════════
-const today = new Date();
-const todayJ = toJalali(today.getFullYear(), today.getMonth()+1, today.getDate());
- 
+const tehranNow = getTehranNow();
+const todayJ = toJalali(tehranNow.getFullYear(), tehranNow.getMonth()+1, tehranNow.getDate());
+
 let dp = {
   year: todayJ.year,
   month: todayJ.month,
@@ -627,87 +724,111 @@ let dp = {
   todayMonth: todayJ.month,
   todayDay: todayJ.day
 };
- 
+
 function dpFormatted() {
   return `${dp.year}/${String(dp.month).padStart(2,'0')}/${String(dp.day).padStart(2,'0')}`;
 }
- 
+
 function dpOpen() {
+  // Always recalculate earliest available when opening (rules may have changed)
+  const earliest = getEarliestAvailable();
+
+  // Always jump dp to earliest if current selection is disabled
+  if (isDayDisabled(dp.year, dp.month, dp.day)) {
+    dp.year = earliest.year;
+    dp.month = earliest.month;
+    dp.day = earliest.day;
+  }
+
+  // Also update the displayed month to match
+  dp.month = dp.month;
+
   document.getElementById('dpOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   dpRender();
 }
- 
+
 function dpClose() {
   document.getElementById('dpOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
- 
-function dpChangeYear(n) {
-  dp.year += n;
-  document.getElementById('dpYear').textContent = dp.year;
-  dpRenderDays();
-}
- 
+
 function dpSelectMonth(m) {
   dp.month = m;
   dpRenderMonths();
   dpRenderDays();
 }
- 
+
 function dpRenderMonths() {
   document.querySelectorAll('.m-btn').forEach((btn, idx) => {
     btn.classList.toggle('active', idx + 1 === dp.month);
   });
 }
- 
+
 function dpRenderDays() {
   const daysInMonth = [31,31,31,31,31,31,30,30,30,30,30,29];
   const max = daysInMonth[dp.month - 1];
   const grid = document.getElementById('dpDayGrid');
   grid.innerHTML = '';
- 
+
   for (let d = 1; d <= max; d++) {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'd-btn';
     btn.textContent = d;
- 
-    const isSelected = d === dp.day;
+
+    const isSelected = d === dp.day && dp.month === dp.month;
     const isToday = d === dp.todayDay && dp.month === dp.todayMonth && dp.year === dp.todayYear;
- 
+    const disabled = isDayDisabled(dp.year, dp.month, d);
+
     if (isSelected) btn.classList.add('active');
     if (isToday && !isSelected) btn.classList.add('today');
- 
-    btn.addEventListener('click', () => {
-      dp.day = d;
-      dpRenderDays();
-    });
+    if (disabled) {
+      btn.classList.add('disabled');
+      btn.disabled = true;
+    } else {
+      btn.addEventListener('click', () => {
+        dp.day = d;
+        dpRenderDays();
+      });
+    }
     grid.appendChild(btn);
   }
 }
- 
+
 function dpRender() {
-  document.getElementById('dpYear').textContent = dp.year;
   dpRenderMonths();
   dpRenderDays();
 }
- 
+
 function dpConfirm() {
+  if (isDayDisabled(dp.year, dp.month, dp.day)) {
+    alert('این روز قابل انتخاب نیست. لطفاً روز دیگری انتخاب کنید.');
+    return;
+  }
   document.getElementById('dateDisplay').value = dpFormatted();
   dpClose();
 }
- 
-// Set today's date on load
-window.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('dateDisplay').value = dpFormatted();
- 
-  // Close on overlay background click
-  document.getElementById('dpOverlay').addEventListener('click', (e) => {
-    if (e.target.id === 'dpOverlay') dpClose();
-  });
+
+// Re-check date when shape or custom text changes
+function recheckDate() {
+  const earliest = getEarliestAvailable();
+  if (isDayDisabled(dp.year, dp.month, dp.day)) {
+    dp.year = earliest.year;
+    dp.month = earliest.month;
+    dp.day = earliest.day;
+    document.getElementById('dateDisplay').value = dpFormatted();
+  }
+}
+
+// ════════════════════════════
+// DISCOUNT CODE
+// ════════════════════════════
+document.getElementById('discountCode')?.addEventListener('input', function() {
+  const tag = document.getElementById('discountTag');
+  tag.classList.toggle('show', this.value.trim().length >= 3);
 });
- 
+
 // ════════════════════════════
 // DELIVERY TOGGLE
 // ════════════════════════════
@@ -726,7 +847,15 @@ document.querySelectorAll('input[name="delivery_type"]').forEach(r => {
     calcPrice();
   });
 });
- 
+
+// Shape change → recheck date
+document.querySelectorAll('input[name="shape"]').forEach(r => {
+  r.addEventListener('change', recheckDate);
+});
+
+// Custom text change → recheck date
+document.querySelector('input[name="custom_text"]')?.addEventListener('input', recheckDate);
+
 // ════════════════════════════
 // LIVE PRICE
 // ════════════════════════════
@@ -743,10 +872,25 @@ function calcPrice() {
     card.classList.remove('show');
   }
 }
- 
+
 document.querySelectorAll('input[name="flavor"]').forEach(r => r.addEventListener('change', calcPrice));
 document.getElementById('kgInput').addEventListener('input', calcPrice);
- 
+
+// ════════════════════════════
+// INIT
+// ════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  const earliest = getEarliestAvailable();
+  dp.year = earliest.year;
+  dp.month = earliest.month;
+  dp.day = earliest.day;
+  document.getElementById('dateDisplay').value = dpFormatted();
+
+  document.getElementById('dpOverlay').addEventListener('click', (e) => {
+    if (e.target.id === 'dpOverlay') dpClose();
+  });
+});
+
 // ════════════════════════════
 // FORM SUBMIT
 // ════════════════════════════
@@ -755,17 +899,20 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
   const btn = document.getElementById('submitBtn');
   const err = document.getElementById('errMsg');
   err.style.display = 'none';
- 
+
   const flavor = document.querySelector('input[name="flavor"]:checked')?.value;
   const shape = document.querySelector('input[name="shape"]:checked')?.value;
   const delivery_type = document.querySelector('input[name="delivery_type"]:checked')?.value;
   const phone = document.getElementById('phone').value.trim();
- 
+
   if (!flavor)        { showErr('لطفاً طعم کیک را انتخاب کنید 🍫'); return; }
   if (!shape)         { showErr('لطفاً شکل کیک را انتخاب کنید'); return; }
   if (!delivery_type) { showErr('لطفاً روش تحویل را انتخاب کنید'); return; }
   if (!/^09\d{9}$/.test(phone)) { showErr('شماره موبایل باید ۱۱ رقم و با ۰۹ شروع شود'); return; }
- 
+
+  const selectedDate = document.getElementById('dateDisplay').value;
+  if (!selectedDate) { showErr('لطفاً تاریخ تحویل را انتخاب کنید'); return; }
+
   const payload = {
     name: document.getElementById('fname').value.trim(),
     phone,
@@ -776,13 +923,14 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
     notes: this.notes.value.trim(),
     delivery_type,
     address: document.getElementById('addrField')?.value?.trim() || '',
-    delivery_date: document.getElementById('dateDisplay').value,
+    delivery_date: selectedDate,
     delivery_time: this.delivery_time.value,
+    discount_code: document.getElementById('discountCode')?.value?.trim() || '',
   };
- 
+
   btn.disabled = true;
   btn.innerHTML = '<span>⏳</span><span>در حال ثبت سفارش...</span>';
- 
+
   try {
     const res = await fetch(API, {
       method:'POST',
@@ -802,20 +950,200 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
     resetBtn();
   }
 });
- 
+
 function showErr(msg) {
   const el = document.getElementById('errMsg');
   el.textContent = '❌  ' + msg;
   el.style.display = 'block';
   el.scrollIntoView({behavior:'smooth', block:'center'});
 }
- 
+
 function resetBtn() {
   const btn = document.getElementById('submitBtn');
   btn.disabled = false;
   btn.innerHTML = '<span style="font-size:21px">🎂</span><span>ثبت سفارش</span>';
 }
- 
+
+function resetForm() {
+  document.getElementById('successWrap').classList.remove('show');
+  document.getElementById('orderForm').reset();
+  document.getElementById('priceCard').classList.remove('show');
+  document.getElementById('addr-wrap').classList.remove('open');
+  document.getElementById('discountTag').classList.remove('show');
+  const earliest = getEarliestAvailable();
+  dp.year = earliest.year; dp.month = earliest.month; dp.day = earliest.day;
+  document.getElementById('dateDisplay').value = dpFormatted();
+  document.getElementById('errMsg').style.display = 'none';
+	  resetBtn();
+	}
+	
+	function dpSelectMonth(m) {
+  dp.month = m;
+  dpRenderMonths();
+  dpRenderDays();
+}
+
+function dpRenderMonths() {
+  document.querySelectorAll('.m-btn').forEach((btn, idx) => {
+    btn.classList.toggle('active', idx + 1 === dp.month);
+  });
+}
+
+function dpRenderDays() {
+  const daysInMonth = [31,31,31,31,31,31,30,30,30,30,30,29];
+  const max = daysInMonth[dp.month - 1];
+  const grid = document.getElementById('dpDayGrid');
+  grid.innerHTML = '';
+
+  for (let d = 1; d <= max; d++) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'd-btn';
+    btn.textContent = d;
+
+    const isSelected = d === dp.day;
+    const isToday = d === dp.todayDay && dp.month === dp.todayMonth && dp.year === dp.todayYear;
+
+    if (isSelected) btn.classList.add('active');
+    if (isToday && !isSelected) btn.classList.add('today');
+
+    btn.addEventListener('click', () => {
+      dp.day = d;
+      dpRenderDays();
+    });
+    grid.appendChild(btn);
+  }
+}
+
+function dpRender() {
+  document.getElementById('dpYear').textContent = dp.year;
+  dpRenderMonths();
+  dpRenderDays();
+}
+
+function dpConfirm() {
+  document.getElementById('dateDisplay').value = dpFormatted();
+  dpClose();
+}
+
+// Set today's date on load
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('dateDisplay').value = dpFormatted();
+
+  // Close on overlay background click
+  document.getElementById('dpOverlay').addEventListener('click', (e) => {
+    if (e.target.id === 'dpOverlay') dpClose();
+  });
+});
+
+// ════════════════════════════
+// DELIVERY TOGGLE
+// ════════════════════════════
+document.querySelectorAll('input[name="delivery_type"]').forEach(r => {
+  r.addEventListener('change', function() {
+    const wrap = document.getElementById('addr-wrap');
+    const addr = document.getElementById('addrField');
+    if (this.value === 'delivery') {
+      wrap.classList.add('open');
+      addr.required = true;
+    } else {
+      wrap.classList.remove('open');
+      addr.required = false;
+      addr.value = '';
+    }
+    calcPrice();
+  });
+});
+
+// ════════════════════════════
+// LIVE PRICE
+// ════════════════════════════
+function calcPrice() {
+  const flavor = document.querySelector('input[name="flavor"]:checked')?.value;
+  const kg = parseFloat(document.getElementById('kgInput').value);
+  const delivery = document.querySelector('input[name="delivery_type"]:checked')?.value;
+  const card = document.getElementById('priceCard');
+  if (flavor && kg > 0) {
+    const total = PRICES[flavor] * kg + (delivery === 'delivery' ? 50000 : 0);
+    document.getElementById('priceNum').textContent = total.toLocaleString('fa-IR');
+    card.classList.add('show');
+  } else {
+    card.classList.remove('show');
+  }
+}
+
+document.querySelectorAll('input[name="flavor"]').forEach(r => r.addEventListener('change', calcPrice));
+document.getElementById('kgInput').addEventListener('input', calcPrice);
+
+// ════════════════════════════
+// FORM SUBMIT
+// ════════════════════════════
+document.getElementById('orderForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const err = document.getElementById('errMsg');
+  err.style.display = 'none';
+
+  const flavor = document.querySelector('input[name="flavor"]:checked')?.value;
+  const shape = document.querySelector('input[name="shape"]:checked')?.value;
+  const delivery_type = document.querySelector('input[name="delivery_type"]:checked')?.value;
+  const phone = document.getElementById('phone').value.trim();
+
+  if (!flavor)        { showErr('لطفاً طعم کیک را انتخاب کنید 🍫'); return; }
+  if (!shape)         { showErr('لطفاً شکل کیک را انتخاب کنید'); return; }
+  if (!delivery_type) { showErr('لطفاً روش تحویل را انتخاب کنید'); return; }
+  if (!/^09\d{9}$/.test(phone)) { showErr('شماره موبایل باید ۱۱ رقم و با ۰۹ شروع شود'); return; }
+
+  const payload = {
+    name: document.getElementById('fname').value.trim(),
+    phone,
+    flavor,
+    kg: document.getElementById('kgInput').value,
+    shape,
+    custom_text: this.custom_text.value.trim(),
+    notes: this.notes.value.trim(),
+    delivery_type,
+    address: document.getElementById('addrField')?.value?.trim() || '',
+    delivery_date: document.getElementById('dateDisplay').value,
+    delivery_time: this.delivery_time.value,
+  };
+
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳</span><span>در حال ثبت سفارش...</span>';
+
+  try {
+    const res = await fetch(API, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    const json = await res.json();
+    if (res.ok && json.success) {
+      document.getElementById('orderId').textContent = `کد پیگیری: #${Date.now().toString().slice(-6)}`;
+      document.getElementById('successWrap').classList.add('show');
+    } else {
+      showErr(json.error || 'مشکلی پیش آمد. دوباره تلاش کنید.');
+      resetBtn();
+    }
+  } catch {
+    showErr('خطا در اتصال به سرور. اینترنت خود را بررسی کنید.');
+    resetBtn();
+  }
+});
+
+function showErr(msg) {
+  const el = document.getElementById('errMsg');
+  el.textContent = '❌  ' + msg;
+  el.style.display = 'block';
+  el.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetBtn() {
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = false;
+  btn.innerHTML = '<span style="font-size:21px">🎂</span><span>ثبت سفارش</span>';
+}
+
 function resetForm() {
   document.getElementById('successWrap').classList.remove('show');
   document.getElementById('orderForm').reset();
@@ -828,4 +1156,3 @@ function resetForm() {
 </script>
 </body>
 </html>
- 
