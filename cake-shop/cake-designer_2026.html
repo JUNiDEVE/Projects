@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="طراحی کیک با هوش مصنوعی">
+<meta name="theme-color" content="#F7F3EE">
+<title>🎨 Cake Studio AI — طراح هوشمند کیک</title>
+<style>
+@font-face { font-family:'Vazirmatn'; src:url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Light.woff2') format('woff2'); font-weight:300; font-display:swap; }
+@font-face { font-family:'Vazirmatn'; src:url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'Vazirmatn'; src:url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+@font-face { font-family:'Vazirmatn'; src:url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-ExtraBold.woff2') format('woff2'); font-weight:800; font-display:swap; }
+@font-face { font-family:'Vazirmatn'; src:url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Black.woff2') format('woff2'); font-weight:900; font-display:swap; }
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+:root {
+  --bg: #F7F3EE;
+  --surface: #FFFFFF;
+  --surface-warm: #FDFBF7;
+  --surface-muted: #F0EBE3;
+  --border: #E8E2D9;
+  --border-strong: #D5CFC6;
+
+  --accent: #C75B3A;
+  --accent2: #D4A24A;
+  --teal: #2A9D8F;
+  --rose: #B85C5C;
+  --success: #2A9D8F;
+
+  --text: #2C1810;
+  --text-dim: #7A6B5D;
+  --text-muted: #A89B8C;
+
+  --shadow-xs: 0 1px 3px rgba(44,24,16,0.04);
+  --shadow-sm: 0 2px 10px rgba(44,24,16,0.06);
+  --shadow-md: 0 8px 30px rgba(44,24,16,0.08);
+  --shadow-lg: 0 16px 48px rgba(44,24,16,0.12);
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+  --nav-height: 64px;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important;}
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  direction: rtl;
+  line-height: 1.6;
+}
+
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.25;
+  background-image:url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23C75B3A' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* ── Smart Navbar ── */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-height);
+  display:flex;align-items:center;justify-content:center;
+  padding:0 16px;
+  transition:transform .35s var(--ease-out),background .35s ease,box-shadow .35s ease;
+  transform:translateY(0);
+}
+.navbar.hidden{transform:translateY(-100%);}
+.navbar.scrolled{
+  background:rgba(247,243,238,.92);
+  backdrop-filter:blur(20px) saturate(1.2);
+  -webkit-backdrop-filter:blur(20px) saturate(1.2);
+  box-shadow:var(--shadow-sm);
+}
+.nav-inner{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:5px 6px;
+  box-shadow:var(--shadow-sm);
+}
+.nav-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:9px 18px;border-radius:100px;
+  font-family:'Vazirmatn',sans-serif;
+  font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .2s ease;
+  text-decoration:none;border:none;
+  color:var(--text-dim);background:transparent;
+  white-space:nowrap;
+}
+.nav-btn:hover{color:var(--text);background:rgba(199,91,58,0.07);}
+.nav-btn.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  box-shadow:0 4px 14px rgba(199,91,58,0.22);
+}
+.nav-logo{font-size:20px;margin:0 4px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.1));}
+
+/* ── Layout ── */
+.page { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 0 16px 80px; }
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: calc(var(--nav-height) + 48px) 0 40px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--surface-warm); border: 1px solid var(--border);
+  border-radius: 100px; padding: 7px 20px;
+  font-size: 12px; font-weight: 800; letter-spacing: 1px;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 20px;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp .6s var(--ease-out) .1s forwards;
+}
+.hero h1 {
+  font-size: clamp(36px,10vw,58px);
+  font-weight: 900; line-height: 1.05; letter-spacing: -2px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 60%, var(--accent2) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 14px;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .7s var(--ease-out) .2s forwards;
+}
+.hero p { font-size: 16px; color: var(--text-dim); font-weight: 300; line-height: 1.7; max-width: 420px; margin: 0 auto;
+  opacity:0;transform:translateY(12px);
+  animation:fadeUp .6s var(--ease-out) .35s forwards;
+}
+
+/* ── Config Notice ── */
+.config-notice {
+  background: rgba(212,162,74,.08);
+  border: 1.5px solid rgba(212,162,74,.25);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 13px; color: #8B6914; font-weight: 600;
+  line-height: 1.6; margin-bottom: 16px;
+  display: none;
+  opacity:0;transform:translateY(10px);
+  transition:all .4s var(--ease-out);
+}
+.config-notice.show { display: block; opacity:1;transform:translateY(0); }
+.config-notice code {
+  background: rgba(212,162,74,.12);
+  padding: 2px 6px; border-radius: 4px;
+  font-family: monospace; font-size: 11px;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 28px;
+  margin-bottom: 16px; position: relative; overflow: hidden;
+  box-shadow: var(--shadow-xs);
+  transition: transform .35s var(--ease-out), box-shadow .35s ease, opacity .6s var(--ease-out), translate .6s var(--ease-out);
+  opacity: 0; translate: 0 30px;
+}
+.card.visible { opacity: 1; translate: 0 0; }
+.card:hover { box-shadow: var(--shadow-sm); }
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(199,91,58,.3), transparent);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* ── Section head ── */
+.sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.sec-icon {
+  width: 42px; height: 42px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0; box-shadow: var(--shadow-xs);
+}
+.si-pink { background: linear-gradient(135deg, #C75B3A, #D4A24A); }
+.si-gold { background: linear-gradient(135deg, #D4A24A, #C75B3A); }
+.si-teal { background: linear-gradient(135deg, #2A9D8F, #38C4B0); }
+.sec-title { font-size: 16px; font-weight: 800; }
+.sec-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+
+/* ── Field ── */
+.field { margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+label {
+  display: block; font-size: 11px; font-weight: 800;
+  color: var(--text-muted); margin-bottom: 8px;
+  letter-spacing: .5px; text-transform: uppercase;
+  transition: color .2s;
+}
+
+/* ── Textarea with character count ── */
+.textarea-wrap{position:relative;}
+textarea, input[type="text"] {
+  width: 100%; padding: 16px;
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 15px; color: var(--text);
+  outline: none; transition: all .25s ease; direction: rtl;
+  resize: vertical;
+}
+textarea{min-height:100px;line-height:1.7;}
+textarea::placeholder, input::placeholder { color: var(--text-muted); font-weight: 300; font-size:14px;}
+textarea:focus, input:focus {
+  border-color: var(--accent);
+  background: #FFF8F5;
+  box-shadow: 0 0 0 4px rgba(199,91,58,.08);
+}
+.char-count{
+  text-align:left;font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:500;
+  direction:ltr;
+}
+
+/* ── Style chips ── */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; width:0;height:0; }
+.chip label {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 18px;
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border);
+  border-radius: 100px; cursor: pointer;
+  font-size: 13px; font-weight: 700;
+  color: var(--text-dim); transition: all .2s var(--ease-spring);
+  text-transform: none; letter-spacing: 0; margin: 0;
+  white-space:nowrap;
+}
+.chip label:hover { background: #FDF6F0; color: var(--text); transform: translateY(-2px); box-shadow: var(--shadow-xs); }
+.chip input:checked + label {
+  background: linear-gradient(135deg, rgba(199,91,58,.08), rgba(212,162,74,.06));
+  border-color: var(--accent); color: var(--text);
+  box-shadow: 0 0 16px rgba(199,91,58,.10);
+  transform: translateY(-1px);
+}
+.chip input:focus + label { box-shadow: 0 0 0 3px rgba(199,91,58,.15); }
+
+/* ── Generate button ── */
+.gen-btn {
+  width: 100%; padding: 22px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; border: none; border-radius: var(--radius-lg);
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 18px; font-weight: 900;
+  cursor: pointer; transition: all .3s var(--ease-spring);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 8px 32px rgba(199,91,58,.25), 0 2px 8px rgba(44,24,16,.06);
+  letter-spacing: -.3px; position: relative; overflow: hidden;
+  margin-bottom: 16px;
+}
+.gen-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.18), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.gen-btn:hover::before { opacity: 1; }
+.gen-btn:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 16px 48px rgba(199,91,58,.35); }
+.gen-btn:active { transform: translateY(0) scale(.98); }
+.gen-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ── Loading state ── */
+.loading-box {
+  display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  padding: 48px 24px; gap: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-xs);
+  opacity:0;transform:translateY(20px);
+  transition:all .4s var(--ease-out);
+}
+.loading-box.show { display: flex; opacity:1;transform:translateY(0); }
+
+.spinner-wrap{position:relative;width:56px;height:56px;}
+.spinner {
+  width: 56px; height: 56px;
+  border: 3px solid rgba(199,91,58,.12);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-steps { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 300px; }
+.loading-step {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--text-muted); font-weight:500;
+  transition: all .4s var(--ease-out);
+}
+.loading-step.active { color: var(--text); font-weight:800; }
+.loading-step.done { color: var(--success); font-weight:700; }
+.step-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--border); flex-shrink: 0; transition: all .3s ease;
+}
+.loading-step.active .step-dot { background: var(--accent); box-shadow: 0 0 10px rgba(199,91,58,.4); animation: pulse 1s infinite; }
+.loading-step.done .step-dot { background: var(--success); box-shadow: 0 0 6px rgba(42,157,143,.3); }
+@keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.5);} }
+
+.step-progress{
+  width:100%;height:3px;background:var(--surface-warm);border-radius:3px;overflow:hidden;margin-top:8px;
+}
+.step-progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:3px;width:0%;transition:width .6s var(--ease-out);
+}
+
+/* ── Result area ── */
+.result-area {
+  display: none;
+  opacity:0;transform:translateY(30px);
+  transition:all .6s var(--ease-out);
+}
+.result-area.show { display: block; opacity:1;transform:translateY(0); }
+
+/* ── Image container ── */
+.img-container {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border);
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+  cursor: zoom-in;
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.img-container:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.img-container img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  transition: transform .4s ease;
+}
+.img-container:hover img { transform: scale(1.02); }
+
+.img-actions {
+  position: absolute; bottom: 16px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 10px;
+  opacity: 0; transition: opacity .3s ease;
+}
+.img-container:hover .img-actions { opacity: 1; }
+.img-container:active{cursor:zoom-out;}
+.img-act-btn {
+  padding: 10px 20px;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 100px; color: var(--text);
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 13px; font-weight: 800;
+  cursor: pointer; transition: all .2s ease;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  box-shadow: var(--shadow-xs);
+}
+.img-act-btn:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* ── Prompt display ── */
+.prompt-display {
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  font-size: 13px; color: var(--text-muted);
+  line-height: 1.7; margin-bottom: 16px;
+  direction: ltr; text-align: left;
+}
+.prompt-display .prompt-label { color: var(--accent2); font-weight: 800; display:block;margin-bottom:4px; }
+
+/* ── Action buttons row ── */
+.action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.action-btn {
+  padding: 16px;
+  background: var(--surface-warm);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-dim);
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 14px; font-weight: 800;
+  cursor: pointer; transition: all .2s var(--ease-spring);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.action-btn:hover { background: #FDF6F0; color: var(--text); transform: translateY(-2px); box-shadow: var(--shadow-xs); }
+.action-btn.primary {
+  background: linear-gradient(135deg, rgba(42,157,143,.08), rgba(56,196,176,.05));
+  border-color: var(--teal); color: var(--teal);
+}
+.action-btn.primary:hover { background: linear-gradient(135deg, rgba(42,157,143,.15), rgba(56,196,176,.10)); }
+
+/* ── Error ── */
+.err-box {
+  display: none; padding: 16px 18px;
+  background: rgba(184,92,92,.08);
+  border: 1.5px solid rgba(184,92,92,.22);
+  border-radius: var(--radius-sm);
+  font-size: 14px; color: #A93226; font-weight: 700;
+  line-height: 1.6; margin-bottom: 16px;
+  opacity:0;transform:translateY(10px);
+  transition:all .4s var(--ease-out);
+}
+.err-box.show { display: block; opacity:1;transform:translateY(0); animation:shake .5s ease; }
+
+/* ── Image lightbox ── */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:5000;
+  background:rgba(44,24,16,.7);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;padding:20px;
+  opacity:0;transition:opacity .4s ease;
+  cursor:zoom-out;
+}
+.lightbox.show{display:flex;opacity:1;}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);transform:scale(.9);transition:transform .4s var(--ease-spring);}
+.lightbox.show img{transform:scale(1);}
+
+/* ── Back to top ── */
+.back-to-top{
+  position:fixed;bottom:20px;left:20px;z-index:900;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--surface);border:1.5px solid var(--border);
+  color:var(--text-dim);font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .3s var(--ease-out);
+  box-shadow:var(--shadow-sm);
+  opacity:0;transform:translateY(10px);pointer-events:none;
+}
+.back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+.back-to-top:hover{background:var(--accent);border-color:var(--accent);color:#fff;transform:translateY(-3px);box-shadow:var(--shadow-md);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(5px);}60%{transform:translateX(-3px);}80%{transform:translateX(2px);}}
+
+@media(max-width:640px) {
+  .card { padding: 20px; }
+  .action-row { grid-template-columns: 1fr; }
+  .chips{gap:8px;}
+  .chip label{padding:9px 14px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <span class="nav-logo">🎂</span>
+    <a href="index1_2026.html" class="nav-btn">سفارش کیک</a>
+    <a href="cake-designer_2026.html" class="nav-btn active">✨ طراح هوشمند</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">✨ هوش مصنوعی</div>
+    <h1>طراح هوشمند<br>کیک</h1>
+    <p>کیک رویاهایت را توصیف کن — هوش مصنوعی آن را برایت تصویرسازی می‌کند</p>
+  </div>
+
+  <!-- Config notice -->
+  <div class="config-notice" id="configNotice">
+    ⚙️ توکن Hugging Face تنظیم نشده است. لطفاً <code>HF_TOKEN</code> را در Replit Secrets اضافه کنید.
+  </div>
+
+  <!-- CARD 1: Description -->
+  <div class="card" id="card1">
+    <div class="sec-head">
+      <div class="sec-icon si-pink">✍️</div>
+      <div>
+        <div class="sec-title">کیکت را توصیف کن</div>
+        <div class="sec-sub">فارسی یا انگلیسی — هر دو قبول است</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="textarea-wrap">
+        <textarea id="userDesc" placeholder="مثلاً: یک کیک تولد چند طبقه با تزئین گل‌های رز صورتی، فوندانت سفید، و شمع‌های طلایی..." rows="5" maxlength="500"></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 500</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2: Style -->
+  <div class="card" id="card2">
+    <div class="sec-head">
+      <div class="sec-icon si-gold">🎨</div>
+      <div>
+        <div class="sec-title">سبک و جزئیات</div>
+        <div class="sec-sub">چند گزینه برای شخصی‌سازی بیشتر</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>سبک تزئین</label>
+      <div class="chips">
+        <div class="chip"><input type="radio" name="style" id="st1" value="elegant, luxurious" checked><label for="st1">👑 لوکس و شیک</label></div>
+        <div class="chip"><input type="radio" name="style" id="st2" value="cute, kawaii, pastel"><label for="st2">🌸 کیوت و پاستل</label></div>
+        <div class="chip"><input type="radio" name="style" id="st3" value="rustic, natural, bohemian"><label for="st3">🌿 رستیک و طبیعی</label></div>
+        <div class="chip"><input type="radio" name="style" id="st4" value="modern, minimalist, geometric"><label for="st4">◾ مدرن و مینیمال</label></div>
+        <div class="chip"><input type="radio" name="style" id="st5" value="fantasy, magical, dreamy"><label for="st5">✨ فانتزی و رویایی</label></div>
+        <div class="chip"><input type="radio" name="style" id="st6" value="dramatic, dark, gothic"><label for="st6">🖤 دراماتیک</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>مناسبت</label>
+      <div class="chips">
+        <div class="chip"><input type="radio" name="occasion" id="oc1" value="birthday" checked><label for="oc1">🎂 تولد</label></div>
+        <div class="chip"><input type="radio" name="occasion" id="oc2" value="wedding"><label for="oc2">💍 عروسی</label></div>
+        <div class="chip"><input type="radio" name="occasion" id="oc3" value="anniversary"><label for="oc3">💝 سالگرد</label></div>
+        <div class="chip"><input type="radio" name="occasion" id="oc4" value="baby shower"><label for="oc4">👶 بیبی شاور</label></div>
+        <div class="chip"><input type="radio" name="occasion" id="oc5" value="celebration"><label for="oc5">🎉 جشن</label></div>
+        <div class="chip"><input type="radio" name="occasion" id="oc6" value="no specific occasion"><label for="oc6">🎁 سفارش عادی</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>رنگ اصلی (اختیاری)</label>
+      <input type="text" id="colorInput" placeholder="مثلاً: صورتی و طلایی / pink and gold" maxlength="60">
+      <div class="char-count"><span id="colorCount">0</span> / 60</div>
+    </div>
+  </div>
+
+  <!-- Generate button -->
+  <button class="gen-btn" id="genBtn" onclick="generate()">
+    <span style="font-size:24px">✨</span>
+    <span>طراحی با هوش مصنوعی</span>
+  </button>
+
+  <!-- Error -->
+  <div class="err-box" id="errBox"></div>
+
+  <!-- Loading -->
+  <div class="loading-box" id="loadingBox">
+    <div class="spinner-wrap"><div class="spinner"></div></div>
+    <div class="loading-steps">
+      <div class="loading-step" id="step1"><div class="step-dot"></div>ترجمه و پردازش توضیحات...</div>
+      <div class="loading-step" id="step2"><div class="step-dot"></div>ساخت پرامپت هوشمند...</div>
+      <div class="loading-step" id="step3"><div class="step-dot"></div>تولید تصویر با هوش مصنوعی...</div>
+      <div class="loading-step" id="step4"><div class="step-dot"></div>آماده‌سازی نتیجه...</div>
+      <div class="step-progress"><div class="step-progress-fill" id="stepProgress"></div></div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result-area" id="resultArea">
+
+    <div class="card" id="resultCard">
+      <div class="sec-head">
+        <div class="sec-icon si-teal">🖼️</div>
+        <div>
+          <div class="sec-title">کیک طراحی شده</div>
+          <div class="sec-sub">تصویر توسط هوش مصنوعی ساخته شده</div>
+        </div>
+      </div>
+
+      <div class="img-container" id="imgContainer" onclick="openLightbox()">
+        <img id="resultImg" src="" alt="کیک طراحی شده">
+        <div class="img-actions">
+          <a id="downloadBtn" class="img-act-btn" download="my-cake-design.png">
+            ⬇️ دانلود
+          </a>
+          <button class="img-act-btn" onclick="event.stopPropagation();generate();">🔄 مجدد</button>
+        </div>
+      </div>
+
+      <div class="prompt-display" id="promptDisplay">
+        <span class="prompt-label">Prompt:</span>
+        <span id="promptText"></span>
+      </div>
+
+      <div class="action-row">
+        <button class="action-btn" onclick="generate()">🔄 طرح جدید</button>
+        <button class="action-btn primary" onclick="useInOrder()">🎂 استفاده در سفارش</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="بزرگ‌نمایی">
+</div>
+
+<!-- Back to top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'});" aria-label="بازگشت به بالا">↑</button>
+
+<script>
+// ════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════
+const API_BASE = '';
+
+// ════════════════════════════════════════
+// CHAR COUNTERS & AUTO-SAVE
+// ════════════════════════════════════════
+const descEl=document.getElementById('userDesc');
+const countEl=document.getElementById('charCount');
+descEl.addEventListener('input',()=>{
+  countEl.textContent=descEl.value.length;
+  saveDesignerState();
+});
+const colorEl=document.getElementById('colorInput');
+const colorCountEl=document.getElementById('colorCount');
+colorEl.addEventListener('input',()=>{
+  colorCountEl.textContent=colorEl.value.length;
+  saveDesignerState();
+});
+document.querySelectorAll('input[name="style"],input[name="occasion"]').forEach(el=>el.addEventListener('change',saveDesignerState));
+
+function saveDesignerState(){
+  sessionStorage.setItem('designerDesc',descEl.value);
+  sessionStorage.setItem('designerColor',colorEl.value);
+  sessionStorage.setItem('designerStyle',document.querySelector('input[name="style"]:checked')?.value||'');
+  sessionStorage.setItem('designerOccasion',document.querySelector('input[name="occasion"]:checked')?.value||'');
+}
+function loadDesignerState(){
+  const d=sessionStorage.getItem('designerDesc');
+  const c=sessionStorage.getItem('designerColor');
+  const s=sessionStorage.getItem('designerStyle');
+  const o=sessionStorage.getItem('designerOccasion');
+  if(d){descEl.value=d;countEl.textContent=d.length;}
+  if(c){colorEl.value=c;colorCountEl.textContent=c.length;}
+  if(s){const r=document.querySelector(`input[name="style"][value="${s}"]`);if(r)r.checked=true;}
+  if(o){const r=document.querySelector(`input[name="occasion"][value="${o}"]`);if(r)r.checked=true;}
+}
+
+// ════════════════════════════════════════
+// CHECK CONFIG
+// ════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', async () => {
+  loadDesignerState();
+  try {
+    const res = await fetch('/health');
+    const data = await res.json();
+    if (!data.hf) document.getElementById('configNotice').classList.add('show');
+  } catch {
+    document.getElementById('configNotice').classList.add('show');
+  }
+});
+
+// ════════════════════════════════════════
+// SMART NAVBAR + SCROLL
+// ════════════════════════════════════════
+const navbar=document.getElementById('navbar');
+let lastScrollY=0,scrollTicking=false;
+window.addEventListener('scroll',()=>{
+  if(!scrollTicking){
+    requestAnimationFrame(()=>{
+      const y=window.scrollY;
+      navbar.classList.toggle('hidden',y>lastScrollY&&y>80);
+      navbar.classList.toggle('scrolled',y>20);
+      document.getElementById('backToTop').classList.toggle('visible',y>400);
+      lastScrollY=y;scrollTicking=false;
+    });
+    scrollTicking=true;
+  }
+},{passive:true});
+
+// ════════════════════════════════════════
+// INTERSECTION OBSERVER
+// ════════════════════════════════════════
+const cardObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');cardObserver.unobserve(e.target);}});
+},{threshold:.12,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.card').forEach(c=>cardObserver.observe(c));
+
+// ════════════════════════════════════════
+// LIGHTBOX
+// ════════════════════════════════════════
+function openLightbox(){
+  const src=document.getElementById('resultImg').src;
+  if(!src)return;
+  document.getElementById('lightboxImg').src=src;
+  document.getElementById('lightbox').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('show');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+
+// ════════════════════════════════════════
+// STEP ANIMATION + PROGRESS BAR
+// ════════════════════════════════════════
+let stepTimer = null;
+function setStep(n){
+  const steps=['step1','step2','step3','step4'];
+  steps.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    el.classList.remove('active','done');
+    if(i<n-1)el.classList.add('done');
+    else if(i===n-1)el.classList.add('active');
+  });
+  document.getElementById('stepProgress').style.width=`${(n-1)*33.33}%`;
+}
+
+// ════════════════════════════════════════
+// TRANSLATE
+// ════════════════════════════════════════
+async function translateToEnglish(text){
+  const persianChars=(text.match(/[\u0600-\u06FF]/g)||[]).length;
+  const totalChars=text.replace(/\s/g,'').length;
+  if(persianChars/totalChars<0.2)return text;
+  try{
+    const res=await fetch('/api/ai/translate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
+    const data=await res.json();
+    return data.translated||text;
+  }catch{return text;}
+}
+
+// ════════════════════════════════════════
+// BUILD PROMPT
+// ════════════════════════════════════════
+function buildPrompt(description,style,occasion,color){
+  const colorPart=color?`, ${color} color scheme`:'';
+  const prompt=`professional food photography of a ${occasion} cake, ${description}, ${style} style${colorPart}, beautiful cake design, on elegant white marble surface, soft studio lighting, bokeh background, ultra detailed, photorealistic, 8k, award winning food photography, masterpiece`;
+  const negative='ugly, deformed, blurry, low quality, cartoon, illustration, drawing, sketch, text, watermark, people, hands';
+  return{prompt,negative};
+}
+
+// ════════════════════════════════════════
+// GENERATE
+// ════════════════════════════════════════
+async function generate(){
+  const userDesc=document.getElementById('userDesc').value.trim();
+  if(!userDesc){
+    showErr('لطفاً ابتدا کیکت را توصیف کن 📝');
+    document.getElementById('userDesc').focus();
+    return;
+  }
+  const style=document.querySelector('input[name="style"]:checked')?.value||'elegant';
+  const occasion=document.querySelector('input[name="occasion"]:checked')?.value||'birthday';
+  const color=document.getElementById('colorInput').value.trim();
+
+  hideErr();
+  showLoading(true);
+  document.getElementById('resultArea').classList.remove('show');
+  document.getElementById('genBtn').disabled=true;
+
+  try{
+    setStep(1);
+    const englishDesc=await translateToEnglish(userDesc);
+    await sleep(600);
+    setStep(2);
+    await sleep(500);
+    const{prompt,negative}=buildPrompt(englishDesc,style,occasion,color);
+    document.getElementById('promptText').textContent=prompt;
+    setStep(3);
+    const imageBlob=await generateImage(prompt,negative);
+    setStep(4);
+    await sleep(400);
+    const imageUrl=URL.createObjectURL(imageBlob);
+    const img=document.getElementById('resultImg');
+    img.src=imageUrl;
+    img.onload=()=>{
+      showLoading(false);
+      document.getElementById('resultArea').classList.add('show');
+      document.getElementById('resultCard').classList.add('visible');
+      document.getElementById('resultArea').scrollIntoView({behavior:'smooth',block:'start'});
+      document.getElementById('downloadBtn').href=imageUrl;
+      saveDesignerState();
+    };
+  }catch(err){
+    showLoading(false);
+    showErr(`❌ خطا در تولید تصویر: ${err.message}`);
+  }finally{
+    document.getElementById('genBtn').disabled=false;
+  }
+}
+
+async function generateImage(prompt,negative){
+  const res=await fetch('/api/ai/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,negative})});
+  if(res.status===503){
+    await sleep(10000);
+    return generateImage(prompt,negative);
+  }
+  if(!res.ok){
+    const err=await res.json().catch(()=>({}));
+    throw new Error(err.error||`Server error ${res.status}`);
+  }
+  return await res.blob();
+}
+
+function useInOrder(){
+  const desc=document.getElementById('userDesc').value.trim();
+  sessionStorage.setItem('aiCakeDesc',desc);
+  sessionStorage.setItem('aiCakeImg',document.getElementById('resultImg').src);
+  window.location.href='index1_2026.html';
+}
+
+// ════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════
+function showLoading(show){
+  const box=document.getElementById('loadingBox');
+  if(show){box.classList.add('show');}else{box.classList.remove('show');}
+  if(!show)setStep(0);
+}
+function showErr(msg){
+  const el=document.getElementById('errBox');
+  el.textContent=msg;
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function hideErr(){
+  document.getElementById('errBox').classList.remove('show');
+}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0231de5ab62d2bf',t:'MTc3OTg2NDk1NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
